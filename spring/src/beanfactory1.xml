@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    
+    <bean id="courseDao" class="BeanFactory1.Dao.impl.CourseDaoImpl"/>
+    <bean id="courseService" class="BeanFactory1.CourseServiceImpl">
+	     <!-- 控制调用setCourseDao()方法，将容器中的courseDao bean作为传入参数 -->
+	     <property name="courseDao" ref="courseDao"></property>
+	</bean>
+	
+</beans>

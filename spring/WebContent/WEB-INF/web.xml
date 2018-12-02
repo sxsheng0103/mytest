@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>spring</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
+<!-- 
+IOC（或者叫做DI）的核心机制，提供了bean工厂（Spring容器），降低了业务对象替换的复杂性，提高了组件之间的解耦。
+AOP的将一些通用任务，如安全、事务、日志等集中进行管理，提高了复用性和管理的便捷性
+ORM和DAO提供了与第三方持久层框架的良好整合，简化了底层数据访问。
+提供了优秀的Web MVC框架。
+ -->

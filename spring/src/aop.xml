@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="chinese" class="aop.Chinese">
+        <!-- <property name="axe" ref="stoneAxe" /> --><!--设值注入  -->
+        <constructor-arg ref="stoneAxe" /><!--构造注入  -->
+    </bean>
+    <bean id="stoneAxe" class="aop.StoneAxe" />
+    <!--将java代码中对象间的依赖关系的控制权交给了Spring配置文件，
+    	由Spring来生成对象，并且设置对象间的依赖关系，
+    	这就是控制反转（IOC）或者叫依赖注入（DI）。
+    	注入方式设值注入/构造注入
+     -->
+    <bean id="win" class="javax.swing.JFrame" />
+    <bean id="date" class="java.util.Date" />
+</beans>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+    xmlns="http://www.springframework.org/schema/beans">
+    
+    <bean id="sessionFactory"
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.show_sql">true </prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <!-- 二级缓存 -->
+                <prop key="hibernate.cache.use_second_level_cache">true</prop>
+                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+                <!--获取当前session并开启事务 -->
+                <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext
+                </prop>
+            </props>
+        </property>
+
+        <!-- 扫描实体 -->
+        <property name="packagesToScan">
+            <value>
+                hibernate
+            </value>
+        </property>
+    </bean>
+    <!-- 配置Hibernate4事务管理器 -->
+    <bean id="transactionManager"
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+	<!--数据源  -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracl:thin:@192.168.0.234:1521:orcl"/>
+		<property name="username" value="jpa"></property>
+		<property name="password" value="jpa"></property>
+	</bean>
+	<bean id="catDao" class="hibernate.CatDaoImpl"> 
+	   <property name="sessionFactory" ref="sessionFactory"/> 
+	</bean>
+	<!--  
+	
+	<hibernate-mapping>
+    <class name="com.lovo.pojo.Emp" table="emp">
+          <id name="id" column="id" type="integer" >
+                  <generator class="native" />
+          </id>
+          <property name="empno" column="empno " type="integer"></property>
+          <property name="ename" column="eName " type="string"></property>
+         <property name="job" column="job " type="string"></property>
+         <property name="mgr" column="mgr " type="integer"></property>
+         <property name="hireDate" column="hireDate " type="date"></property>
+         <property name="sal" column="sal " type="double"></property>
+         <property name="comm" column="comm " type="double"></property>
+        <many-to-one name="dept" class="com.lovo.pojo.Dept" column="deptNo" fetch="join"></many-to-one>    
+    </class>
+    
+	</hibernate-mapping>
+	
+	
+	-->
+</beans>

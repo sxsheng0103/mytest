@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean id="student" class="BeanFactory.Po.Student"/>
+    <bean id="teacher" class="BeanFactory.Po.Teacher"/>
+	
+	<!-- service实现类的配置 -->
+	
+	<bean id="testService" class="testrmi.SpitterServiceImp" />
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+	
+	<!-- does not necessarily have to be the same name as the bean to be exported -->
+	
+	<property name="serviceName" value="testService" />
+	
+	<property name="service" ref="testService" />
+	
+	<property name="serviceInterface" value="testrmi.SpitterService" />
+	
+	<!-- <property name="registryHost" value="rmi://192.168.100.7"/> -->
+	
+	<!-- defaults to 1099 -->
+	
+	<property name="registryPort" value="1199" />
+	
+	</bean>
+
+
+<!-- 接口方法setFeedback（String, FeedbackType, String）的实现大家不用关心，其与RMI并无关系，
+只是一些纯业务处理逻辑而已，要注意的是接口实现类必须实现 IfeedbackWebService和Serializable接口。
+在客户本地的omasservice.jar包中客户反馈的RMI客户端的配置如下： -->
+
+	<bean id="fbWebServiceProxy"
+	
+	class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+	
+	<property name="serviceUrl">
+	
+	<value>rmi://127.0.0.1:1199/testService</value>
+	
+	</property>
+	
+	<property name="serviceInterface">
+	<value>testrmi.SpitterService</value>
+	
+	</property>
+	
+	</bean>
+	
+	<bean class="testrmi.client.MainConfig">
+	
+	<property name="testService" ref="testService" />
+	
+	</bean>
+	<context:component-scan base-package="testrmi.*"></context:component-scan>
+</beans>
